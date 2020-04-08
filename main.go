@@ -1,9 +1,8 @@
 package main
 
 import (
-	"context"
 	"fmt"
-	"github.com/ethereum/go-ethereum/common"
+	"wisp-erc20/account"
 	client2 "wisp-erc20/client"
 )
 
@@ -11,17 +10,9 @@ func main() {
 
 	client2.Init()
 
-	address := common.HexToAddress("0x71c7656ec7ab88b098defb751b7401b5f6d8976f")
-	fmt.Println(address.Hex())
-	fmt.Println(address.Hash().Hex())
-	fmt.Println("以太主网连接成功")
+	balance := account.GetBalanceByAddress("0x812F6Fe50b7189CB2f6031846cf9Ef0f395a1C20")
+	fmt.Println("根据地址查询余额为: ", balance)
 
-	fmt.Println("查询余额")
-	account := common.HexToAddress("0x812F6Fe50b7189CB2f6031846cf9Ef0f395a1C20")
-	balance, err := client2.Client.BalanceAt(context.Background(), account, nil)
-	if err != nil {
-		panic(err)
-	}
-
-	fmt.Println("账户余额为: ", balance)
+	balance1 := account.GetBalanceByBlock("0x812F6Fe50b7189CB2f6031846cf9Ef0f395a1C20", 0)
+	fmt.Println("根据地址以及区块号查询余额为: ", balance1)
 }
